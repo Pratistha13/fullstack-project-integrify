@@ -4,7 +4,7 @@
   "description": "A starting point for Node.js express apps with TypeScript",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/TypeScript-Node-Starter"
+    "url": "git+https://github.com/Microsoft/TypeScript-Node-Starter.git"
   },
   "author": "Bowden Kelly",
   "license": "MIT",
@@ -20,9 +20,9 @@
   "dependencies": {
     "@types/jsonwebtoken": "^8.3.7",
     "@types/lusca": "^1.7.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "errorhandler": "^1.5.1",
-    "express": "^4.17.1",
+    "express": "^4.18.1",
     "husky": "^4.2.3",
     "jsonwebtoken": "^8.5.1",
     "lint-staged": "^10.0.8",
@@ -70,5 +70,14 @@
   },
   "jest": {
     "testEnvironment": "node"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Microsoft/TypeScript-Node-Starter/issues"
+  },
+  "homepage": "https://github.com/Microsoft/TypeScript-Node-Starter#readme",
+  "main": ".prettierrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
 }
