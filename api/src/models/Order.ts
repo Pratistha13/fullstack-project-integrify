@@ -3,8 +3,8 @@ import mongoose, { Document } from 'mongoose'
 export type OrderDocument = Document & {
   price: number
   quantity: number
-  product: string[]
-  // userId: string
+  products: string[]
+  userId: string
 }
 
 const orderSchema = new mongoose.Schema({
@@ -17,7 +17,7 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
 
-  product: [
+  products: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
@@ -25,9 +25,9 @@ const orderSchema = new mongoose.Schema({
     },
   ],
 
-  // userId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User',
-  // },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 })
 export default mongoose.model<OrderDocument>('Order', orderSchema)

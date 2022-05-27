@@ -4,8 +4,6 @@ import User from '../models/User'
 import UserService from '../services/user'
 import { BadRequestError } from '../helpers/apiError'
 
-//let {user} = require('../data')
-
 // POST /user
 export const createUser = async (
   req: Request,
@@ -13,12 +11,14 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
-    const { firstName, lastName, email } = req.body
+    const { firstName, lastName, userName, email, password } = req.body
 
     const user = new User({
       firstName,
       lastName,
+      userName,
       email,
+      password,
     })
 
     await UserService.create(user)
@@ -39,9 +39,13 @@ export const updateUser = async (
   next: NextFunction
 ) => {
   try {
-    const update = req.body
-    const userId = req.params.userId
-    const updatedUser = await UserService.update(userId, update)
+    const { firstName, lastName, email } = req.body
+    const user = {
+      firstName,
+      lastName,
+      email,
+    }
+    const updatedUser = await UserService.update(req.params.userId, user)
     res.json(updatedUser)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {

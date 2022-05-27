@@ -9,7 +9,7 @@ export type ProductDocument = Document & {
   variants: string[]
   sizes: string[]
   img: string
-  // userId: string
+  orderId: string
 }
 
 const productSchema = new mongoose.Schema({
@@ -29,10 +29,10 @@ const productSchema = new mongoose.Schema({
   },
   img: String,
 
-  // userId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User',
-  // },
+  orderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Order',
+  },
 })
 
 export default mongoose.model<ProductDocument>('Product', productSchema)

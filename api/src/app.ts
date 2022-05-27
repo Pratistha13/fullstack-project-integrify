@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import userRouter from './routers/user'
 import productRouter from './routers/product'
 import orderRouter from './routers/order'
+import adminRouter from './routers/admin'
 
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
@@ -23,6 +24,7 @@ app.use(express.json())
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/product', productRouter)
 app.use('/api/v1/order', orderRouter)
+app.use('/api/v1/admin', adminRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)

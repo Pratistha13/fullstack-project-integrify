@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 
 import Product from '../models/Product'
-import ProductService from '../services/product'
+import AdminService from '../services/admin'
 import { BadRequestError } from '../helpers/apiError'
 
-// POST /products
+//Create product
 export const createProduct = async (
   req: Request,
   res: Response,
@@ -24,7 +24,7 @@ export const createProduct = async (
       orderId,
     })
 
-    await ProductService.create(product)
+    await AdminService.create(product)
     res.json(product)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -35,7 +35,7 @@ export const createProduct = async (
   }
 }
 
-// PUT /product/:productId
+// Update product PUT /product/:productId
 export const updateProduct = async (
   req: Request,
   res: Response,
@@ -44,7 +44,7 @@ export const updateProduct = async (
   try {
     const update = req.body
     const productId = req.params.productId
-    const updatedProduct = await ProductService.update(productId, update)
+    const updatedProduct = await AdminService.update(productId, update)
     res.json(updatedProduct)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -62,7 +62,7 @@ export const deleteProduct = async (
   next: NextFunction
 ) => {
   try {
-    await ProductService.deleteProduct(req.params.productId)
+    await AdminService.deleteProduct(req.params.productId)
     res.status(204).end()
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -73,34 +73,19 @@ export const deleteProduct = async (
   }
 }
 
-// GET /product/:productId
-export const findById = async (
+//Ban/Unban user PUT /user/:userId
+export const updateBan = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await ProductService.findById(req.params.productId))
-  } catch (error) {
-    if (error instanceof Error && error.name == 'ValidationError') {
-      next(new BadRequestError('Invalid Request', error))
-    } else {
-      next(error)
+    const { userStatus } = req.body
+    const user = {
+      userStatus,
     }
-  }
-}
-
-// search product by product name,categories and variants GET /product/:productName
-// do this later
-
-// GET /product
-export const findAll = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    res.json(await ProductService.findAll())
+    const updateUser = await AdminService.updateBan(req.params.userId, user)
+    res.json(updateUser)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))

@@ -4,10 +4,10 @@ enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
 }
-type UserStatus = 'banned' | 'notBanned'
+type userStatus = 'banned' | 'notBanned'
 
-export type UserDocument = Document & {
-  userStatus: UserStatus
+export type AdminDocument = Document & {
+  userStatus: userStatus
   firstName: string
   lastName: string
   userName: string
@@ -16,7 +16,7 @@ export type UserDocument = Document & {
   role: Role
 }
 
-const userSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
   userStatus: {
     type: String,
     default: 'notBanned',
@@ -54,4 +54,4 @@ const userSchema = new mongoose.Schema({
   },
 })
 
-export default mongoose.model<UserDocument>('User', userSchema)
+export default mongoose.model<AdminDocument>('Admin', adminSchema)
