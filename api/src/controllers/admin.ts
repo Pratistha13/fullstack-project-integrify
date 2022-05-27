@@ -80,9 +80,9 @@ export const updateBan = async (
   next: NextFunction
 ) => {
   try {
-    const { userStatus } = req.body
+    const { isBanned } = req.body
     const user = {
-      userStatus,
+      isBanned,
     }
     const updateUser = await AdminService.updateBan(req.params.userId, user)
     res.json(updateUser)

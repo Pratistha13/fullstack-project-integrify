@@ -4,10 +4,9 @@ enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
 }
-type userStatus = 'banned' | 'notBanned'
 
 export type AdminDocument = Document & {
-  userStatus: userStatus
+  isBanned: boolean
   firstName: string
   lastName: string
   userName: string
@@ -17,9 +16,9 @@ export type AdminDocument = Document & {
 }
 
 const adminSchema = new mongoose.Schema({
-  userStatus: {
-    type: String,
-    default: 'notBanned',
+  isBanned: {
+    type: Boolean,
+    default: false,
   },
 
   firstName: {
