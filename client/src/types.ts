@@ -1,6 +1,9 @@
 // Action types
 export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
+export const FETCH_PRODUCTS_FAILURE = "FETCH_PRODUCTS_FAILURE";
+
+
 
 export type Categories = "Men" | "Women" | "Kids" | "Accessories";
 
@@ -15,7 +18,7 @@ export type Product = {
 };
 
 export type ProductsState = {
-  items: Product[] | any;
+  items: Product[];
   isLoading: false;
   error: null;
 };

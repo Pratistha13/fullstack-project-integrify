@@ -31,7 +31,6 @@ const userSchema = new mongoose.Schema({
   },
   username: {
     type: String,
-    required: true,
     minLength: 4,
     maxLength: 10,
   },
@@ -42,7 +41,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Please Enter Your Password'],
     minLength: [6, 'Password should be greater than 6 characters'],
     select: false,
   },

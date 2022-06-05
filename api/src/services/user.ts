@@ -1,7 +1,7 @@
 import User, { UserDocument } from '../models/User'
 import { NotFoundError } from '../helpers/apiError'
 
-const create = async (user: UserDocument): Promise<UserDocument> => {
+const save = async (user: UserDocument): Promise<UserDocument> => {
   return user.save()
 }
 
@@ -13,6 +13,10 @@ const findById = async (userId: string): Promise<UserDocument> => {
   }
 
   return foundUser
+}
+
+const findOne = async (email: string): Promise<UserDocument | null> => {
+  return User.findOne({ email })
 }
 
 const findAll = async (): Promise<UserDocument[]> => {
@@ -45,9 +49,10 @@ const deleteUser = async (userId: string): Promise<UserDocument | null> => {
 }
 
 export default {
-  create,
+  save,
   findById,
   findAll,
+  findOne,
   update,
-  deleteUser: deleteUser,
+  deleteUser,
 }

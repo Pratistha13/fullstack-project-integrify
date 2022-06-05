@@ -8,10 +8,12 @@ import {
   updateOrder,
 } from '../controllers/order'
 
+import verifyAuth from '../middlewares/verifyAuth'
+
 const router = express.Router()
 
 // Every path we define here will get /api/v1/order prefix
-router.get('/', findAll)
+router.get('/', verifyAuth, findAll)
 router.get('/:orderId', findById)
 router.put('/:orderId', updateOrder)
 router.delete('/:orderId', deleteOrder)

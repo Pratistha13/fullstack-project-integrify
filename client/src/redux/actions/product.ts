@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 
-import { FETCH_PRODUCTS_SUCCESS, Product } from "../../types";
+import { FETCH_PRODUCTS_FAILURE, FETCH_PRODUCTS_SUCCESS,  Product } from "../../types";
 
 export function fetchProductsSuccess(products: Product[]) {
   return {
@@ -10,6 +10,16 @@ export function fetchProductsSuccess(products: Product[]) {
     },
   };
 }
+
+export function fetchProductsFailure(products: Product[]) {
+  return {
+    type: FETCH_PRODUCTS_FAILURE,
+    payload: {
+      products,
+    },
+  };
+}
+
 
 // An Example of Async action processed by redux-thunk middleware
 export function fetchProducts() {

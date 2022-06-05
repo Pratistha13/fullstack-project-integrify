@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import makeStore from "./redux/store";
 
 const store = makeStore();
-export type AppDispatch = typeof store.dispatch;
+
 
 ReactDOM.render(
   <Provider store={store}>

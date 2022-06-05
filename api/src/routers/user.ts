@@ -8,6 +8,8 @@ import {
   updateUser,
 } from '../controllers/user'
 
+import passport from 'passport'
+
 const router = express.Router()
 
 // Every path we define here will get /api/v1/user prefix

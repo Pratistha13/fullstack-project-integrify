@@ -97,7 +97,8 @@ export const findAll = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await OrderService.findAll())
+    //res.json(await OrderService.findAll())
+    res.json({ user: req.user })
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
