@@ -5,12 +5,14 @@ import { AppState } from "../types";
 import createRootReducer from "./reducers";
 
 const initState: AppState = {
-  products: {
-    items: [],
-    isLoading: false,
-    error: null,
+  product: {
+    products: [],
   },
-};
+  cart: {
+    data: []
+  }
+
+  } 
 
 export default function makeStore(initialState = initState) {
   const middlewares = [thunk];

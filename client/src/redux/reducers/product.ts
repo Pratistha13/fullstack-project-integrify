@@ -1,22 +1,31 @@
-import { ProductsState, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILURE } from "../../types";
+import { ProductState, ProductActions, GET_ALL_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT } from '../../types'
 
 export default function product(
-  state: ProductsState = {
-    items: [],
-    isLoading: false,
-    error: null,
+  state: ProductState = {
+    products: [],
   },
-  action: any
-): ProductsState {
+  action: ProductActions
+): ProductState {
   switch (action.type) {
-    case FETCH_PRODUCTS_SUCCESS: {
-      return { ...state, items: action.payload.products };
+    case GET_ALL_PRODUCTS: {
+      const { products } = action.payload.products
+      return {
+        ...state,
+        products,
+      }
     }
-    case FETCH_PRODUCTS_FAILURE: {
-      return { ...state, error: action.payload.products, isLoading:false };
-    }
+    case ADD_PRODUCT: {
+      console.log('add product reducer');
+      console.log(action);
+      console.log('state', state);
 
+      const { product } = action.payload;
+      return {
+        products: [...state.products,product],
+      };   
+    }
+  
     default:
-      return state;
+      return state
   }
 }
