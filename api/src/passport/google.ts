@@ -6,13 +6,14 @@ import UserService from '../services/user'
 
 const loginWithGoogle = () => {
   return new GoogleStrategy(
-    // {
-    //   the clientId is optional in this case
-    //   clientID: process.env.GOOGLE_CLIENT_ID,
-    // },
     async (
       parsedToken: {
-        payload: { given_name: string; family_name: string; email: string }
+        payload: {
+          given_name: string
+          family_name: string
+          email: string
+          hd: string
+        }
       },
       googleID: string,
       done: Function
@@ -29,7 +30,7 @@ const loginWithGoogle = () => {
           } as unknown as UserDocument
 
           const newUser = new User(userTest)
-          await UserService.save(newUser)
+          await UserService.create(newUser)
         }
         // Append user object to req.user
         done(null, userTest)

@@ -2,6 +2,16 @@ import mongoose, { Document } from 'mongoose'
 
 export type Categories = 'Men' | 'Women' | 'Kids' | 'Accessories'
 
+export type Product = {
+  name: string
+  description: string
+  categories: Categories[]
+  variants: string[]
+  sizes: string[]
+  img: string
+  orderId: string
+}
+
 export type ProductDocument = Document & {
   name: string
   description: string

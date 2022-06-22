@@ -1,6 +1,10 @@
 import User, { UserDocument } from '../models/User'
 import { NotFoundError } from '../helpers/apiError'
 
+const create = async (user: UserDocument): Promise<UserDocument> => {
+  return user.save()
+}
+
 const save = async (user: UserDocument): Promise<UserDocument> => {
   return user.save()
 }
@@ -49,6 +53,7 @@ const deleteUser = async (userId: string): Promise<UserDocument | null> => {
 }
 
 export default {
+  create,
   save,
   findById,
   findAll,

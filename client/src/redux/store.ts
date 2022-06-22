@@ -1,16 +1,27 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
-import { AppState } from "../types";
+import { AppState, User } from "../types";
 import createRootReducer from "./reducers";
 
 const initState: AppState = {
   product: {
-    products: [],
+    products:[],
   },
   cart: {
-    data: []
-  }
+    cart: [],
+  },
+  user: {
+    users: []
+  },
+  login: {
+    token: '',
+    username: '',
+    role: '',
+    isLogged: false,
+    isUserLoading: false,
+    email: ''
+  },
 
   } 
 

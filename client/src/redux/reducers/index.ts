@@ -2,6 +2,11 @@ import { combineReducers } from 'redux'
 
 import cart from './cart'
 import product from './product'
+import user from './user'
+import login from './login'
+
+
+
 
 
 const createRootReducer = () =>
@@ -9,6 +14,8 @@ const createRootReducer = () =>
    
     product,
     cart,
+    user,
+    login
    
   })
 

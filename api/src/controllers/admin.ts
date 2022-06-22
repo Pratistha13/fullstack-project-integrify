@@ -73,7 +73,7 @@ export const deleteProduct = async (
   }
 }
 
-//Ban/Unban user PUT /user/:userId
+//Ban/Unban user PUT /admin/:userId
 export const updateBan = async (
   req: Request,
   res: Response,

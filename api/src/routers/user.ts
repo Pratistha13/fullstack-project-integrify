@@ -7,8 +7,8 @@ import {
   findAll,
   updateUser,
 } from '../controllers/user'
-
-import passport from 'passport'
+// import verifyAuth from '../middlewares/verifyAuth'
+// import verifyAdmin from '../middlewares/verifyAdmin'
 
 const router = express.Router()
 

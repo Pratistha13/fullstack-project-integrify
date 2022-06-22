@@ -1,8 +1,18 @@
 import mongoose, { Document } from 'mongoose'
 
-enum Role {
+export enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
+}
+
+export type User = {
+  isBanned: boolean
+  firstName: string
+  lastName: string
+  userName: string
+  email: string
+  password: string
+  role: Role
 }
 
 export type UserDocument = Document & {

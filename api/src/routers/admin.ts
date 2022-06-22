@@ -6,6 +6,8 @@ import {
   deleteProduct,
   updateBan,
 } from '../controllers/admin'
+import verifyAdmin from '../middlewares/verifyAdmin'
+import verifyAuth from '../middlewares/verifyAuth'
 
 const router = express.Router()
 
@@ -13,6 +15,6 @@ const router = express.Router()
 router.put('/:productId', updateProduct)
 router.delete('/:productId', deleteProduct)
 router.post('/', createProduct)
-router.put('/user/:userId', updateBan)
+router.put('/user/:userId', verifyAuth, updateBan)
 
 export default router

@@ -21,7 +21,7 @@ export const createUser = async (
       password,
     })
 
-    await UserService.save(user)
+    await UserService.create(user)
     res.json(user)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -39,11 +39,12 @@ export const updateUser = async (
   next: NextFunction
 ) => {
   try {
-    const { firstName, lastName, email } = req.body
+    const { firstName, lastName, email, role } = req.body
     const user = {
       firstName,
       lastName,
       email,
+      role,
     }
     const updatedUser = await UserService.update(req.params.userId, user)
     res.json(updatedUser)
@@ -107,19 +108,3 @@ export const findAll = async (
     }
   }
 }
-
-// // POST /authenticate
-// export const authenticate = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const user = req.user as any
-//     const JWT_SECRET = process.env.JWT_SECRET as string
-//     const token = jwt.sign({email:user.email, role: user.role}, JWT_SECRET, {expiresIn: '1h'})
-//     res.json({token})
-//   } catch (error) {
-//     return next(new InternalServerError())
-//   }
-// }

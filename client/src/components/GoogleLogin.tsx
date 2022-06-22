@@ -1,56 +1,89 @@
-import { useState } from "react";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { Link, useNavigate } from "react-router-dom";
+import { Box, Typography } from "@material-ui/core";
+import { useState } from "react";
+
+import { getCurrentUser, setSigningIn } from "../redux/actions/login";
 
 
-const GoogleApp = ()=> {
-  const [token, setToken] =useState('')
 
-  const handleSuccess = async (response: any) => {
-    const tokenId = response.credential
+const Login = () => {
 
-    const res = await axios.post('http://localhost:5000/google-login', {},{
-      headers:{
-        Authorization : `Bearer ${tokenId}`,
-      },
-    })
-    const token = res.data.token
-    setToken(token)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleSuccess = async (googleResponse: any) => {
+    const tokenId = googleResponse.credential;
+    const res = await axios.post(
+      "http://localhost:5000/google-login",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${tokenId}`,
+        },
+      }
+    );
+    const token = res.data.token;
+    const { email, username, role } = JSON.parse(
+      atob(res.data.token.split(".")[1])
+    );
+    const user = {
+      email,
+      username,
+      role,
+      token,
+      isLogged: true,
+    };
+    dispatch(setSigningIn(user));
+    dispatch(getCurrentUser(email) as any);
+    user.role === 'ADMIN' ? navigate("/admin") : navigate("/start");
+  };
 
-    console.log ('token:',token)
-    
-  }
+ 
 
   const clientId =
     "891243554376-p501vqvfom0lsu970po1vf3fdqmagsdf.apps.googleusercontent.com";
 
-    const handleGetOrders = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/v1/order', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        console.log('response:', response.data)
-      } catch (error: any) {
-        console.log('error:', error.response.data)
-      }
-    }
+  const handleSignOut = () => {
+    navigate("/login");
+    localStorage.removeItem("token");
+  };
+
+  const [login, setLogin] = useState(true);
 
   return (
-    <div>
-      <GoogleOAuthProvider clientId={clientId}>
-        <GoogleLogin onSuccess={handleSuccess} />
-      </GoogleOAuthProvider>
-      <button
-          style={{ width: '200px', height: '80px', marginTop: '1rem' }}
-          onClick={handleGetOrders}
+    <Box>
+      {login ? (
+        <Link
+          className="link"
+          to="/home"
+          onClick={() => {
+            handleSignOut();
+            setLogin(false);
+          }}
         >
-          GET ORDERS
-        </button>
-
-    </div>
+          <Typography
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+            }}
+          >
+            Logout
+          </Typography>
+        </Link>
+      ) : (
+       
+          <GoogleOAuthProvider clientId={clientId}>
+            <GoogleLogin onSuccess={handleSuccess} />
+          </GoogleOAuthProvider>
+        
+      )}
+    </Box>
   );
-}
+};
 
-export default GoogleApp;
+export default Login;
+
+
