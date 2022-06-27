@@ -116,21 +116,29 @@ export function userUnBan(Id: string): UserActions {
   }
 }
 
-export function banUser(userId: string) {
+export function banUser(token: string, userId: string) {
   return async function (dispatch: Dispatch) {
     
-      const url = `http://localhost:5000/api/v1/user/${userId}`
-      const userData = await axios.put(url, {isBanned:true})
+      const url = `http://localhost:5000/api/v1/admin/user/${userId}`
+      const userData = await axios.put(url, {isBanned:true},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (userData.status === 200) {
         dispatch(userBan(userId))
       }
   }
 }
-export function unBanUser(userId: string) {
+export function unBanUser(token: string, userId: string) {
   return async function (dispatch: Dispatch) {
     
-      const url = `http://localhost:5000/api/v1/user/${userId}`
-      const userData = await axios.put(url, {isBanned:false})
+      const url = `http://localhost:5000/api/v1/admin/user/${userId}`
+      const userData = await axios.put(url, {isBanned:false},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       if (userData.status === 200) {
         dispatch(userUnBan(userId))
       }

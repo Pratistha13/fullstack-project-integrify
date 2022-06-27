@@ -11,6 +11,8 @@ import { getCurrentUser, setSigningIn } from "../redux/actions/login";
 
 const Login = () => {
 
+  const [token, setToken] = useState('')
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSuccess = async (googleResponse: any) => {
@@ -24,7 +26,10 @@ const Login = () => {
         },
       }
     );
-    const token = res.data.token;
+    const token = res.data.token
+        window.localStorage.setItem('token', token)
+        setToken(token)
+
     const { email, username, role } = JSON.parse(
       atob(res.data.token.split(".")[1])
     );
@@ -41,7 +46,6 @@ const Login = () => {
   };
 
  
-
   const clientId =
     "891243554376-p501vqvfom0lsu970po1vf3fdqmagsdf.apps.googleusercontent.com";
 
@@ -85,5 +89,4 @@ const Login = () => {
 };
 
 export default Login;
-
 

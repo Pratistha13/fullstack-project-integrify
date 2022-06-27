@@ -2,7 +2,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
-import Radio from "@mui/material/Radio";
 import Button from "@mui/material/Button";
 
 import { AppState, User } from "../../types";
@@ -30,12 +29,10 @@ export default function UserForm() {
 
   console.log(state);
   const {
-    _id,
     firstName,
     lastName,
     email,
     role,
-    isBanned,
     userName,
     password,
   } = state;
@@ -70,12 +67,7 @@ export default function UserForm() {
     setState({ ...state, [name]: value });
   };
 
-  const [value, setValue] = React.useState("Unbanned");
-
-  const handleBan = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
-
+ 
   return (
     <>
       <Box
@@ -135,20 +127,6 @@ export default function UserForm() {
             name="password"
           />
 
-          <Radio
-            checked={value === "Unbanned"}
-            onChange={handleBan}
-            value="Unbanned"
-            name="Unbanned"
-            inputProps={{ "aria-label": "A" }}
-          />
-          <Radio
-            checked={value === "Banned"}
-            onChange={handleBan}
-            value="Banned"
-            name="Banned"
-            inputProps={{ "aria-label": "B" }}
-          />
         </div>
 
         <Button type="submit" variant="contained" sx={{ mt: 1, mb: 2 }}>

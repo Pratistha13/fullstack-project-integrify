@@ -13,7 +13,7 @@ const LandingPage = () => {
   const productData = useProduct() 
 
   const filteredProduct = (productData).filter((product: Product) =>
-    product.description.toLowerCase().includes(search.toLowerCase())
+    product.name.toLowerCase().includes(search.toLowerCase())
   )
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

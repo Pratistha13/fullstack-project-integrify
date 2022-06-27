@@ -1,8 +1,6 @@
 import {
   Button,
   Container,
-  createStyles,
-  makeStyles,
   Table,
   TableCell,
   TableHead,
@@ -23,29 +21,12 @@ import {
 import { AppState } from "../../types";
 
 const Users = (user: any) => {
-  const useStyles = makeStyles((theme) =>
-    createStyles({
-      greenText: {
-        color: "green",
-      },
-      redText: {
-        color: "red",
-      },
-      banBtn: {
-        boxShadow: "none",
-      },
-      text: {
-        textDecoration: user.isBanned === true ? "line-through" : "none",
-      },
-    })
-  );
   const dispatch = useDispatch<any>();
   const fetchedUsers = useSelector((state: AppState) => state.user.users);
+
   const { token } = useSelector((state: AppState) => state.login);
 
   const navigate = useNavigate();
-
-  // const {token} = useSelector((state: AppState) => state.login);
 
   console.log("user", fetchedUsers[0]);
 
@@ -53,23 +34,17 @@ const Users = (user: any) => {
     dispatch(fetchAllUser());
   }, []);
 
-  // const handleBan = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-
-  //   dispatch(banUser(user) );
-  //   alert('You are Banned due to violation of e-shop rules!')
-  // };
-
-  const classes = useStyles();
   return (
     <>
       <NavBar />
-      {/* <Button
+      <Button
       style={{ backgroundColor: "turquoise", color: "#fff" }}
       onClick={() => navigate("/userForm")}
     >
       Create User
-    </Button> */}
+    </Button>
+    <br/>
+ 
       <Button
         style={{ backgroundColor: "turquoise", color: "#fff" }}
         onClick={() => navigate(`/admin`)}
@@ -114,7 +89,7 @@ const Users = (user: any) => {
                       : { backgroundColor: "#ba68c8", color: "#fff" }
                   }
                   disabled={item.isBanned === true ? true : false}
-                  onClick={() => dispatch(banUser(String(item._id)))}
+                  onClick={() => dispatch(banUser(token, String(item._id)))}
                 >
                   Ban
                 </Button>
@@ -130,36 +105,11 @@ const Users = (user: any) => {
                       : { backgroundColor: "#ef5350", color: "#fff" }
                   }
                   disabled={item.isBanned === false ? true : false}
-                  onClick={() => dispatch(unBanUser(String(item._id)))}
+                  onClick={() => dispatch(unBanUser(token, String(item._id)))}
                 >
                   UnBan
                 </Button>
-                {/* <Button
-                style={item.isBanned=== true?{
-                  backgroundColor: 'grey',
-                  color: '#000000',
-                  opacity: '0.3',
-                }:{ backgroundColor: '#d32f2f', color: '#fff' }}
-                disabled={item.isBanned === true ? true : false}
-                onClick={() => dispatch(banUser(String(item._id)) as any)}
-              >
-                Ban
-              </Button>
-              <Button
-                style={
-                  item.isBanned === false
-                    ? {
-                      backgroundColor: 'grey',
-                      color: '#000000',
-                      opacity: '0.3',
-                    }
-                    : { backgroundColor: '#4caf50', color: '#fff' }
-                }
-                onClick={() => dispatch(unBanUser(String(item._id)) as any)}
-                disabled={item.isBanned === false ? true : false}
-              >
-                Unban
-              </Button> */}
+              
               </TableCell>
 
               <TableCell style={{ display: "flex", gap: "2px" }}>
