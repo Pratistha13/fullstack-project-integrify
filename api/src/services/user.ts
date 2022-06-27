@@ -24,7 +24,7 @@ const findOne = async (email: string): Promise<UserDocument | null> => {
 }
 
 const findAll = async (): Promise<UserDocument[]> => {
-  return User.find().sort({ name: 1, publishedYear: -1 })
+  return User.find().sort({ name: 1 })
 }
 
 const update = async (
