@@ -3,7 +3,11 @@
     "@react-oauth/google": "^0.2.5"
   },
   "scripts": {
-    "lint": "eslint.js"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "npx eslint --max-warnings=0 --fix '**/*.{ts,tsx}'"
   }
 }
 
